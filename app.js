@@ -116,9 +116,6 @@ const promptProject = portfolioData => {
         ])
         .then(projectData => {
             portfolioData.projects.push(projectData);
-        })
-        .then(projectData => {
-            portfolioData.projects.push(projectData);
             if (projectData.confirmAddProject) {
                 return promptProject(portfolioData);
             } else {
@@ -130,12 +127,11 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
-        // const pageHTML = generatePage(name, github);
+        const pageHTML = generatePage(portfolioData);
 
-        // fs.writeFile('./index.html', pageHTML, err => {
-        //     if (err) throw err;
+        fs.writeFile('./index.html', pageHTML, err => {
+            if (err) throw new Error(err);
 
-        //     console.log('Portfolio Complete! Check out index.html to see the output!');
-        // });
+            console.log('Page created! Check out index.html to see the output!');
+        });
     });
